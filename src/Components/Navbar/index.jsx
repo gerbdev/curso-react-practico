@@ -94,7 +94,7 @@ const Navbar = () => {
         </li>
         <li className="font-normal">
           <NavLink
-            to="/sing-in"
+            to="/sign-in"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Sign In
