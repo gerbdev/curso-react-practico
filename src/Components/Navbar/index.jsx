@@ -34,7 +34,7 @@ const Navbar = () => {
     } else {
       return (
         <>
-          <li className="text-black/60">teff@platzi.com</li>
+          <li className="text-black/60">gerdev@platzi.com</li>
           <li>
             <NavLink
               to="/my-orders"
