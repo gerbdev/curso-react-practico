@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ShoppingCartContext } from "../../Context";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
+import { ShoppingCartContext } from "../../Context";
 
 const Navbar = () => {
   const context = useContext(ShoppingCartContext);
@@ -9,17 +9,17 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     const stringifiedSignOut = JSON.stringify(true);
-    localStorage.setItem("signOut", stringifiedSignOut);
-    context.setSignOut();
+    localStorage.setItem("sign-out", stringifiedSignOut);
+    context.setSignOut(true);
   };
 
   return (
-    <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-slate-400 shadow-md">
+    <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-slate-500 shadow-md">
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg">
           <NavLink to="/">Shopi</NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/"
             onClick={() => context.setSearchByCategory()}
@@ -28,7 +28,7 @@ const Navbar = () => {
             All
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/clothes"
             onClick={() => context.setSearchByCategory("clothes")}
@@ -37,7 +37,7 @@ const Navbar = () => {
             Clothes
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/electronics"
             onClick={() => context.setSearchByCategory("electronics")}
@@ -46,7 +46,7 @@ const Navbar = () => {
             Electronics
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/furnitures"
             onClick={() => context.setSearchByCategory("furnitures")}
@@ -55,7 +55,7 @@ const Navbar = () => {
             Furnitures
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/toys"
             onClick={() => context.setSearchByCategory("toys")}
@@ -64,7 +64,7 @@ const Navbar = () => {
             Toys
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/others"
             onClick={() => context.setSearchByCategory("others")}
@@ -75,8 +75,8 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className="flex items-center gap-3">
-        <li className="text-black/60">ger23@platzi.com</li>
-        <li className="font-normal">
+        <li className="text-black/60">teff@platzi.com</li>
+        <li>
           <NavLink
             to="/my-orders"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
@@ -84,7 +84,7 @@ const Navbar = () => {
             My Orders
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/my-account"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
@@ -92,16 +92,17 @@ const Navbar = () => {
             My Account
           </NavLink>
         </li>
-        <li className="font-normal">
+        <li>
           <NavLink
             to="/sign-in"
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
+            onClick={() => handleSignOut()}
           >
-            Sign Out
+            Sign out
           </NavLink>
         </li>
         <li className="flex items-center">
-          <ShoppingBagIcon className="h-6 w-6 text-black" />
+          <ShoppingBagIcon className="h-6 w-6 text-black"></ShoppingBagIcon>
           <div>{context.cartProducts.length}</div>
         </li>
       </ul>
