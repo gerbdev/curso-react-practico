@@ -1,13 +1,11 @@
-import Layaout from "../../Components/Layaout"
+import Layout from "../../Components/Layout";
 
 function MyAccount() {
   return (
     <>
-      <Layaout className='bg-red-100'>
-        MyAccount
-      </Layaout>
+      <Layout className="bg-red-100">MyAccount</Layout>
     </>
-  )
+  );
 }
- 
-export default MyAccount
+
+export default MyAccount;
