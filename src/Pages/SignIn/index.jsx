@@ -21,7 +21,7 @@ function SignIn() {
         </Link>
         <div className="text-center">
           <a
-            className="font-light text-xs underline underline-offset-4"
+            className="font-medium text-sm underline underline-offset-4"
             href="/"
           >
             Forgot my password
