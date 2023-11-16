@@ -112,7 +112,7 @@ function SignIn() {
             className="rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60focus:outline-none py-2 px-4"
           />
         </div>
-        <Link>
+        <Link to="/">
           <button
             className="bg-black  text-white  w-full rounded-lg py-3"
             onClick={() => createAnAccount()}
