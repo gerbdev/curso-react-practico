@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { useRoutes, BrowserRouter, Navigate } from "react-router-dom";
 import {
-  ShoppingCartContext,
   ShoppingCartProvider,
   initializeLocalStorage,
+  ShoppingCartContext,
 } from "../../Context";
 import Home from "../Home";
 import MyAccount from "../MyAccount";
@@ -12,7 +12,7 @@ import MyOrders from "../MyOrders";
 import NotFound from "../NotFound";
 import SignIn from "../SignIn";
 import Navbar from "../../Components/Navbar";
-import ChekoutSideMenu from "../../Components/CheckoutSideMenu";
+import CheckoutSideMenu from "../../Components/CheckoutSideMenu";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -38,7 +38,7 @@ const AppRoutes = () => {
         hasUserAnAccount && !isUserSignOut ? (
           <Home />
         ) : (
-          <Navigate replace to="/sign-in" />
+          <Navigate replace to={"/sign-in"} />
         ),
     },
     {
@@ -47,7 +47,7 @@ const AppRoutes = () => {
         hasUserAnAccount && !isUserSignOut ? (
           <Home />
         ) : (
-          <Navigate replace to="/sign-in" />
+          <Navigate replace to={"/sign-in"} />
         ),
     },
     {
@@ -56,7 +56,7 @@ const AppRoutes = () => {
         hasUserAnAccount && !isUserSignOut ? (
           <Home />
         ) : (
-          <Navigate replace to="/sign-in" />
+          <Navigate replace to={"/sign-in"} />
         ),
     },
     {
@@ -65,7 +65,7 @@ const AppRoutes = () => {
         hasUserAnAccount && !isUserSignOut ? (
           <Home />
         ) : (
-          <Navigate replace to="/sign-in" />
+          <Navigate replace to={"/sign-in"} />
         ),
     },
     {
@@ -74,16 +74,16 @@ const AppRoutes = () => {
         hasUserAnAccount && !isUserSignOut ? (
           <Home />
         ) : (
-          <Navigate replace to="/sign-in" />
+          <Navigate replace to={"/sign-in"} />
         ),
     },
     {
-      path: "/othes",
+      path: "/others",
       element:
         hasUserAnAccount && !isUserSignOut ? (
           <Home />
         ) : (
-          <Navigate replace to="/sign-in" />
+          <Navigate replace to={"/sign-in"} />
         ),
     },
     { path: "/my-account", element: <MyAccount /> },
@@ -106,7 +106,7 @@ const App = () => {
       <BrowserRouter>
         <AppRoutes />
         <Navbar />
-        <ChekoutSideMenu />
+        <CheckoutSideMenu />
       </BrowserRouter>
     </ShoppingCartProvider>
   );
