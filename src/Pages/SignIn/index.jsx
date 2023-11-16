@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCartContext } from "../../Context";
 import Layout from "../../Components/Layout";
@@ -6,6 +6,7 @@ import Layout from "../../Components/Layout";
 function SignIn() {
   const context = useContext(ShoppingCartContext);
   const [view, setView] = useState("user-info");
+  const form = useRef(null);
 
   // Account
   const account = localStorage.getItem("account");
@@ -18,6 +19,17 @@ function SignIn() {
     ? Object.keys(context.account).length === 0
     : true;
   const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
+  // Capturar la info del formulario usando ref
+  const createAnAccount = () => {
+    const formData = new FormData(form.current);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    console.log(data);
+  };
 
   const renderLoginIn = () => {
     return (
