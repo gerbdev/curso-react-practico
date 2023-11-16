@@ -1,36 +1,106 @@
-import { useRoutes, BrowserRouter } from 'react-router-dom';
-import { ShoppingCartProvider } from "../../Context";
-import Home from '../Home'
-import MyAccount from '../MyAccount'
-import MyOrder from '../MyOrder'
-import MyOrders from '../MyOrders'
-import NotFound from '../NotFound'
-import SignIn from '../SignIn'
-import Navbar from '../../Components/Navbar';
-import ChekoutSideMenu from '../../Components/CheckoutSideMenu';
-import './App.css'
+import { useContext } from "react";
+import { useRoutes, BrowserRouter, Navigate } from "react-router-dom";
+import {
+  ShoppingCartContext,
+  ShoppingCartProvider,
+  initializeLocalStorage,
+} from "../../Context";
+import Home from "../Home";
+import MyAccount from "../MyAccount";
+import MyOrder from "../MyOrder";
+import MyOrders from "../MyOrders";
+import NotFound from "../NotFound";
+import SignIn from "../SignIn";
+import Navbar from "../../Components/Navbar";
+import ChekoutSideMenu from "../../Components/CheckoutSideMenu";
+import "./App.css";
 
 const AppRoutes = () => {
-  let routes = useRoutes([
-    { path: '/', element: <Home /> },
-    { path: '/clothes', element: <Home /> },
-    { path: '/electronics', element: <Home /> },
-    { path: '/furnitures', element: <Home /> },
-    { path: '/toys', element: <Home /> },
-    { path: '/othes', element: <Home /> },
-    { path: '/my-account', element: <MyAccount /> },
-    { path: '/my-order', element: <MyOrder /> },
-    { path: '/my-orders', element: <MyOrders /> },
-    { path: '/my-orders/last', element: <MyOrder /> },
-    { path: '/my-orders/:id', element: <MyOrder /> },
-    { path: '/sign-in', element: <SignIn /> },
-    { path: '/*', element: <NotFound /> },
-  ])
+  const context = useContext(ShoppingCartContext);
+  // Account
+  const account = localStorage.getItem("account");
+  const parsedAccount = JSON.parse(account);
+  // Sign Out
+  const signOut = localStorage.getItem("sign-out");
+  const parsedSignOut = JSON.parse(signOut);
+  // Has an account
+  const noAccountInLocalStorage = parsedAccount
+    ? Object.keys(parsedAccount).length === 0
+    : true;
+  const noAccountInLocalState = Object.keys(context.account).length === 0;
+  const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+  const isUserSignOut = context.signOut || parsedSignOut;
 
-  return routes
-}
+  let routes = useRoutes([
+    {
+      path: "/",
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <Home />
+        ) : (
+          <Navigate replace to="/sign-in" />
+        ),
+    },
+    {
+      path: "/clothes",
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <Home />
+        ) : (
+          <Navigate replace to="/sign-in" />
+        ),
+    },
+    {
+      path: "/electronics",
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <Home />
+        ) : (
+          <Navigate replace to="/sign-in" />
+        ),
+    },
+    {
+      path: "/furnitures",
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <Home />
+        ) : (
+          <Navigate replace to="/sign-in" />
+        ),
+    },
+    {
+      path: "/toys",
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <Home />
+        ) : (
+          <Navigate replace to="/sign-in" />
+        ),
+    },
+    {
+      path: "/othes",
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <Home />
+        ) : (
+          <Navigate replace to="/sign-in" />
+        ),
+    },
+    { path: "/my-account", element: <MyAccount /> },
+    { path: "/my-order", element: <MyOrder /> },
+    { path: "/my-orders", element: <MyOrders /> },
+    { path: "/my-orders/last", element: <MyOrder /> },
+    { path: "/my-orders/:id", element: <MyOrder /> },
+    { path: "/sign-in", element: <SignIn /> },
+    { path: "/*", element: <NotFound /> },
+  ]);
+
+  return routes;
+};
 
 const App = () => {
+  initializeLocalStorage();
+
   return (
     <ShoppingCartProvider>
       <BrowserRouter>
@@ -39,7 +109,7 @@ const App = () => {
         <ChekoutSideMenu />
       </BrowserRouter>
     </ShoppingCartProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
