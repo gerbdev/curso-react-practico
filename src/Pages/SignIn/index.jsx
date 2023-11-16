@@ -37,7 +37,12 @@ function SignIn() {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    console.log(data);
+    // Create account
+    const stringifiedAccount = JSON.stringify(data);
+    localStorage.setItem("account", stringifiedAccount);
+    context.setAccount(data);
+    // Sing in
+    handleSignIn();
   };
 
   const renderLoginIn = () => {
