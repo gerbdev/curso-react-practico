@@ -32,20 +32,8 @@ const Navbar = () => {
   const renderView = () => {
     if (hasUserAnAccount && !isUserSignOut) {
       return (
-        <li>
-          <NavLink
-            to="/sign-in"
-            className={({ isActive }) => (isActive ? activeStyle : undefined)}
-            onClick={() => handleSignOut()}
-          >
-            Sign out
-          </NavLink>
-        </li>
-      );
-    } else {
-      return (
         <>
-          <li className="text-black/60">gerdev@platzi.com</li>
+          <li className="text-black/60">teff@platzi.com</li>
           <li>
             <NavLink
               to="/my-orders"
@@ -73,12 +61,25 @@ const Navbar = () => {
           </li>
         </>
       );
+    } else {
+      return (
+        <li>
+          <NavLink
+            to="/sign-in"
+            className={({ isActive }) => (isActive ? activeStyle : undefined)}
+            onClick={() => handleSignOut()}
+          >
+            Sign in
+          </NavLink>
+        </li>
+      );
     }
   };
+
   return (
-    <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-4 px-8 text-sm font-medium bg-slate-400 shadow-md">
+    <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-slate-400 shadow-md">
       <ul className="flex items-center gap-3">
-        <li className="font-semibold text-2xl">
+        <li className="font-semibold text-lg">
           <NavLink to={`${isUserSignOut ? "/sign-in" : "/"}`}>Shopi</NavLink>
         </li>
         <li>
