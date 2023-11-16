@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { ShoppingCartContext } from "../../Context";
 import Layout from "../../Components/Layout";
 
@@ -19,6 +19,15 @@ function SignIn() {
     ? Object.keys(context.account).length === 0
     : true;
   const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
+  // Key de sign-out en false y redirigiendo al home
+  const handleSignIn = () => {
+    const stringifiedSignOut = JSON.stringify(false);
+    localStorage.setItem("sign-out", stringifiedSignOut);
+    context.setSignOut(false);
+    // Redirigiendo al home
+    return <Navigate replace to={"/"} />;
+  };
 
   // Capturar la info del formulario usando ref
   const createAnAccount = () => {
