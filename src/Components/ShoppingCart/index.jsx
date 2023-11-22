@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
+import { ShoppingCartContext } from "../../Context";
 
 const ShoppingCart = () => {
   const context = useContext(ShoppingCartContext);
@@ -20,3 +22,5 @@ const ShoppingCart = () => {
     </div>
   );
 };
+
+export default ShoppingCart;
