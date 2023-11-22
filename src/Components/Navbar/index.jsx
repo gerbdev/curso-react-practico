@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 import ShoppingCart from "../ShoppingCart";
 
