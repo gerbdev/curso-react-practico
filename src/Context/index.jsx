@@ -1,11 +1,10 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext();
 
-// Inicializar variables account y sign-out en localStorage
 export const initializeLocalStorage = () => {
-  const accountInLocalStorage = JSON.parse(localStorage.getItem("account"));
-  const signOutInLocalStorage = JSON.parse(localStorage.getItem("signOut"));
+  const accountInLocalStorage = localStorage.getItem("account");
+  const signOutInLocalStorage = localStorage.getItem("sign-out");
   let parsedAccount;
   let parsedSignOut;
 
@@ -17,7 +16,7 @@ export const initializeLocalStorage = () => {
   }
 
   if (!signOutInLocalStorage) {
-    localStorage.setItem("signOut", JSON.stringify({}));
+    localStorage.setItem("sign-out", JSON.stringify(false));
     parsedSignOut = false;
   } else {
     parsedSignOut = JSON.parse(signOutInLocalStorage);
@@ -25,42 +24,42 @@ export const initializeLocalStorage = () => {
 };
 
 export const ShoppingCartProvider = ({ children }) => {
-  // My Account
+  // My account
   const [account, setAccount] = useState({});
 
-  // Sign Out
+  // Sign out
   const [signOut, setSignOut] = useState(false);
 
-  // Shopping Cart - Increment quantity
+  // Shopping Cart · Increment quantity
   const [count, setCount] = useState(0);
 
-  // Product Detail - Open/Close
+  // Product Detail · Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const openProductDetail = () => setIsProductDetailOpen(true);
   const closeProductDetail = () => setIsProductDetailOpen(false);
 
-  // Chekout Side Menu - Open/Close
-  const [isChekoutSideMenOpen, setIsChekoutSideMenOpen] = useState(false);
-  const openChekoutSideMenu = () => setIsChekoutSideMenOpen(true);
-  const closeChekoutSideMenu = () => setIsChekoutSideMenOpen(false);
+  // Checkout Side Menu · Open/Close
+  const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
+  const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true);
+  const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
-  // Product Detail - Show product
+  // Product Detail · Show product
   const [productToShow, setProductToShow] = useState({});
 
-  // Shopping Cart - Add products to cart
+  // Shopping Cart · Add products to cart
   const [cartProducts, setCartProducts] = useState([]);
 
-  // Shopping Cart - Order
+  // Shopping Cart · Order
   const [order, setOrder] = useState([]);
 
-  // Get Prodcuts
+  // Get products
   const [items, setItems] = useState(null);
   const [filteredItems, setFilteredItems] = useState(null);
 
-  // Get Prodcuts by title
-  const [searchByTitle, setSearchByTitlte] = useState(null);
+  // Get products by title
+  const [searchByTitle, setSearchByTitle] = useState(null);
 
-  // Get Prodcuts by category
+  // Get products by category
   const [searchByCategory, setSearchByCategory] = useState(null);
 
   useEffect(() => {
@@ -81,28 +80,25 @@ export const ShoppingCartProvider = ({ children }) => {
     );
   };
 
-  const filterBy = useCallback(
-    (searchType, items, searchByTitle, searchByCategory) => {
-      if (searchType === "BY_TITLE") {
-        return filteredItemsByTitle(items, searchByTitle);
-      }
+  const filterBy = (searchType, items, searchByTitle, searchByCategory) => {
+    if (searchType === "BY_TITLE") {
+      return filteredItemsByTitle(items, searchByTitle);
+    }
 
-      if (searchType === "BY_CATEGORY") {
-        return filteredItemsByCategory(items, searchByCategory);
-      }
+    if (searchType === "BY_CATEGORY") {
+      return filteredItemsByCategory(items, searchByCategory);
+    }
 
-      if (searchType === "BY_TITLE_AND_CATEGORY") {
-        return filteredItemsByCategory(items, searchByCategory).filter((item) =>
-          item.title.toLowerCase().includes(searchByTitle.toLowerCase())
-        );
-      }
+    if (searchType === "BY_TITLE_AND_CATEGORY") {
+      return filteredItemsByCategory(items, searchByCategory).filter((item) =>
+        item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+      );
+    }
 
-      if (!searchType) {
-        return items;
-      }
-    },
-    []
-  );
+    if (!searchType) {
+      return items;
+    }
+  };
 
   useEffect(() => {
     if (searchByTitle && searchByCategory)
@@ -124,7 +120,7 @@ export const ShoppingCartProvider = ({ children }) => {
       );
     if (!searchByTitle && !searchByCategory)
       setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory));
-  }, [items, searchByTitle, searchByCategory, filterBy]);
+  }, [items, searchByTitle, searchByCategory]);
 
   return (
     <ShoppingCartContext.Provider
@@ -138,15 +134,15 @@ export const ShoppingCartProvider = ({ children }) => {
         setProductToShow,
         cartProducts,
         setCartProducts,
-        isChekoutSideMenOpen,
-        openChekoutSideMenu,
-        closeChekoutSideMenu,
+        isCheckoutSideMenuOpen,
+        openCheckoutSideMenu,
+        closeCheckoutSideMenu,
         order,
         setOrder,
         items,
         setItems,
         searchByTitle,
-        setSearchByTitlte,
+        setSearchByTitle,
         filteredItems,
         searchByCategory,
         setSearchByCategory,
